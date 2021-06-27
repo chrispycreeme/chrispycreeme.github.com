@@ -1,0 +1,42 @@
+@media screen and (max-width: 600px) {
+    h1.heading-flipped,
+    p.text-center {
+        text-align: center;
+        float: none;
+    }
+}
+
+@media screen and (max-width:1150px) {
+    img.Main {
+        display: none;
+    }
+    h1.text-heading,
+    p.text-description {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .top-div {
+        height: 250px;
+    }
+    h1.text-heading,
+    p.text-description {
+        text-align: left;
+        margin-left: 25px;
+    }
+    h1.text-heading {
+        font-size: 50px;
+    }
+    p.text-description {
+        font-size: 18px;
+    }
+    h1.name-text {
+        font-size: 80px;
+        margin-left: 70px;
+    }
+    p.description-p {
+        font-size: 20px;
+        margin-left: 70px;
+    }
+}
