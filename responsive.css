@@ -27,11 +27,11 @@
     }
     h1.text-heading {
         font-size: 50px;
-        margin-left: 0px;
+        margin-left: 15px;
     }
     p.text-description {
         font-size: 18px;
-        margin-left: 0px;
+        margin-left: 15px;
     }
     h1.name-text {
         font-size: 80px;
