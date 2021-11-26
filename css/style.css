@@ -1,0 +1,90 @@
+:root {
+    --foreground-color: rgb(39, 39, 44);
+    --box-border-color: rgb(235, 235, 235);
+    --background-box-color: rgb(250, 250, 250); 
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--foreground-color);
+}
+
+.container-placeholder {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1.name-heading {
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+p.description {
+    margin-top: 0px;
+}
+
+.name-tag {
+    border: 1px solid var(--box-border-color);
+    background-color: var(--background-box-color);
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-radius: 5px;
+}
+
+img.profile-picture {
+    border: 1px solid var(--box-border-color);
+    border-radius: 50%;
+    width: 100px;
+    height: auto;
+}
+
+h1.section-title {
+    color: var(--foreground-color);
+    margin-left: 1em;
+    margin-bottom: 0px;
+}
+
+.biography-content,
+.skills-content,
+.Socials-content {
+    border: 1px solid var(--box-border-color);
+    background-color: var(--background-box-color);
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    margin-top: 1em;
+}
+
+p.content-description {
+    margin-left: 2em;
+    margin-top: 10px;
+}
+
+p.footer-description {
+    margin-left: 2em;
+    color: var(--foreground-color);
+}
+
+a.github-link {
+    color: var(--foreground-color);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+@media screen and (max-width: 800px) {
+    .container-placeholder {
+        width: 400px;
+    }
+
+    .name-tag,
+    .biography-content,
+    .skills-content,
+    .Socials-content {
+        width: 400px;
+    }
+}
+
