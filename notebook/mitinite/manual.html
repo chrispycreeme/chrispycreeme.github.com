@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Electromechanical Pump Controller - User Manual</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #10b981;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --bg-white: #ffffff;
+            --border: #e5e7eb;
+            --warning: #f59e0b;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* Navigation */
+        nav.navbar {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 1rem;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-dark);
+            display: block;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        .nav-menu li {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            text-align: center;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background-color: var(--bg-light);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Sections */
+        section {
+            background: var(--bg-white);
+            margin: 2rem 0;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        section h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        section h3 {
+            color: var(--text-dark);
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Subsection */
+        .subsection {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background-color: var(--bg-light);
+            border-left: 4px solid var(--primary);
+            border-radius: 4px;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            line-height: 1.8;
+        }
+
+        /* Component Grid */
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .component-card {
+            background: var(--bg-light);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .component-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .component-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 3rem;
+        }
+
+        .component-info {
+            padding: 1.5rem;
+        }
+
+        .component-info h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .component-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background-color: #059669;
+        }
+
+        /* Step-by-step */
+        .steps {
+            counter-reset: step-counter;
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            margin-bottom: 1.5rem;
+            padding-left: 3rem;
+            position: relative;
+        }
+
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* Alert boxes */
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background-color: #dbeafe;
+            border-color: var(--primary);
+            color: #1e40af;
+        }
+
+        .alert-warning {
+            background-color: #fef3c7;
+            border-color: var(--warning);
+            color: #92400e;
+        }
+
+        .alert-success {
+            background-color: #dcfce7;
+            border-color: var(--success);
+            color: #166534;
+        }
+
+        /* Code blocks */
+        code {
+            background-color: var(--bg-light);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: var(--primary-dark);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        table th,
+        table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        table th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        table tr:hover {
+            background-color: var(--bg-light);
+        }
+
+        /* Diagram */
+        .diagram {
+            background-color: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Mobile First Responsive */
+        @media (max-width: 640px) {
+            * {
+                font-size: 16px;
+            }
+
+            header {
+                padding: 2rem 1rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+                margin-bottom: 0.25rem;
+            }
+
+            header p {
+                font-size: 0.95rem;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                gap: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            .nav-menu.active {
+                max-height: 500px;
+            }
+
+            .nav-menu li {
+                flex: none;
+                width: 100%;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-menu a {
+                text-align: left;
+                padding: 0.875rem 1rem;
+                border-bottom: none;
+                border-left: 3px solid transparent;
+            }
+
+            .nav-menu a:hover {
+                border-left-color: var(--primary);
+                border-bottom: none;
+            }
+
+            .container {
+                padding: 1rem 0.75rem;
+                max-width: 100%;
+            }
+
+            section {
+                padding: 1.25rem;
+                margin: 1rem 0;
+                border-radius: 6px;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                padding-bottom: 0.75rem;
+            }
+
+            section h3 {
+                font-size: 1.1rem;
+                margin-top: 1.25rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .subsection {
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+
+            .component-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+
+            .component-card {
+                border-radius: 6px;
+            }
+
+            .component-image {
+                height: 150px;
+                font-size: 2.5rem;
+            }
+
+            .component-info {
+                padding: 1rem;
+            }
+
+            .component-info h4 {
+                font-size: 1rem;
+            }
+
+            .component-info p {
+                font-size: 0.85rem;
+            }
+
+            .spec-table {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .spec-item {
+                padding: 0.75rem;
+                border-left-width: 3px;
+            }
+
+            .spec-label {
+                font-size: 0.8rem;
+            }
+
+            .spec-value {
+                font-size: 0.9rem;
+            }
+
+            table {
+                font-size: 0.85rem;
+                width: 100%;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            table th,
+            table td {
+                padding: 0.5rem;
+            }
+
+            .alert {
+                padding: 0.75rem 1rem;
+                margin: 1rem 0;
+                font-size: 0.9rem;
+                border-left-width: 3px;
+            }
+
+            .steps li {
+                margin-bottom: 1.25rem;
+                padding-left: 2.75rem;
+            }
+
+            .steps li::before {
+                width: 2.25rem;
+                height: 2.25rem;
+                font-size: 0.95rem;
+            }
+
+            ul, ol {
+                margin-left: 1rem;
+            }
+
+            li {
+                margin-bottom: 0.75rem;
+                font-size: 0.95rem;
+            }
+
+            .btn {
+                padding: 0.65rem 1.25rem;
+                font-size: 0.9rem;
+            }
+
+            .lcd-simulation {
+                padding: 0.75rem;
+                margin: 1rem 0;
+                border-width: 2px;
+            }
+
+            .lcd-line {
+                font-size: 0.8rem;
+            }
+
+            code {
+                padding: 0.2rem 0.3rem;
+                font-size: 0.85rem;
+            }
+
+            footer {
+                padding: 1.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            nav a {
+                padding: 0.875rem;
+                font-size: 0.95rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+                max-width: 100%;
+            }
+
+            section {
+                padding: 2rem;
+                margin: 1.5rem 0;
+            }
+
+            section h2 {
+                font-size: 1.75rem;
+            }
+
+            section h3 {
+                font-size: 1.2rem;
+            }
+
+            .component-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .component-image {
+                height: 180px;
+            }
+
+            .spec-table {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            table th,
+            table td {
+                padding: 0.65rem;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .component-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .spec-table {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Specs List */
+        .spec-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .spec-item {
+            background-color: var(--bg-light);
+            padding: 1rem;
+            border-radius: 4px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .spec-value {
+            font-size: 1rem;
+            color: var(--text-dark);
+            margin-top: 0.25rem;
+        }
+
+        /* Display simulation */
+        .lcd-simulation {
+            background-color: #1a1a1a;
+            border: 3px solid #333;
+            border-radius: 4px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            text-align: center;
+            margin: 1.5rem 0;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .lcd-line {
+            line-height: 1.5;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌱 Pump Controller Manual</h1>
+        <p>Automated Electromechanical Pump Controller</p>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#getting-started">Getting Started</a></li>
+                <li><a href="#components">Components</a></li>
+                <li><a href="#operation">Operation</a></li>
+                <li><a href="#configuration">Configuration</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Getting Started -->
+        <section id="getting-started">
+            <h2>Getting Started</h2>
+            
+            <h3>Power Up Instructions</h3>
+            <p>To power up your Automated Electromechanical Pump Controller:</p>
+            <ol class="steps">
+                <li>Locate the barrel jack connector on the device</li>
+                <li>Use a 5V or 12V power supply (adapter recommended)</li>
+                <li>Insert the positive lead into the barrel jack</li>
+                <li>The LCD display should illuminate and show "System Init..."</li>
+                <li>After 2-3 seconds, the display will show "Ready!"</li>
+            </ol>
+
+            <div class="alert alert-info">
+                <strong>ℹ️ Power Requirements:</strong> The device accepts 5V-12V DC input via barrel jack. Use a properly grounded power supply for safety.
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>⚠️ Important:</strong> Do not apply power with reversed polarity. Check your power supply polarity before connecting.
+            </div>
+
+            <h3>Initial Setup</h3>
+            <p>When powered on for the first time:</p>
+            <ul>
+                <li>The system loads default configuration from internal memory</li>
+                <li>Default values: Moisture 50%, pH 7.0, Water Level 30%, Pump Duration 5 seconds</li>
+                <li>You can customize these settings using Configuration Mode</li>
+                <li>All settings are stored in non-volatile memory (EEPROM)</li>
+            </ul>
+        </section>
+
+        <!-- Components -->
+        <section id="components">
+            <h2>Components & Sensors</h2>
+            <p>Your pump controller includes several key components. Here's what each one does:</p>
+
+            <div class="component-grid">
+                <!-- Soil Moisture Sensor -->
+                <div class="component-card">
+                    <div class="component-image">💧</div>
+                    <div class="component-info">
+                        <h4>Soil Moisture Sensor</h4>
+                        <p><strong>Pin:</strong> A1</p>
+                        <p>Measures soil water content. Triggers pump when soil is too dry (below threshold).</p>
+                        <p><strong>Range:</strong> 0-100%</p>
+                    </div>
+                </div>
+
+                <!-- pH Sensor -->
+                <div class="component-card">
+                    <div class="component-image">🧪</div>
+                    <div class="component-info">
+                        <h4>pH Level Sensor</h4>
+                        <p><strong>Pin:</strong> A0</p>
+                        <p>Monitors soil acidity. Pump activates when pH is above threshold (too alkaline).</p>
+                        <p><strong>Range:</strong> 0.0-14.0</p>
+                    </div>
+                </div>
+
+                <!-- Water Level Sensor -->
+                <div class="component-card">
+                    <div class="component-image">🚰</div>
+                    <div class="component-info">
+                        <h4>Water Level Sensor</h4>
+                        <p><strong>Pin:</strong> A2</p>
+                        <p>Checks water tank level. Pump won't operate if water is below threshold.</p>
+                        <p><strong>Range:</strong> 0-100%</p>
+                    </div>
+                </div>
+
+                <!-- LCD Display -->
+                <div class="component-card">
+                    <div class="component-image">📺</div>
+                    <div class="component-info">
+                        <h4>LCD Display (16x2)</h4>
+                        <p><strong>Interface:</strong> I2C</p>
+                        <p>Shows real-time sensor readings and pump status. Displays settings in Config Mode.</p>
+                        <p><strong>Address:</strong> 0x27</p>
+                    </div>
+                </div>
+
+                <!-- Control Button -->
+                <div class="component-card">
+                    <div class="component-image">🔘</div>
+                    <div class="component-info">
+                        <h4>Control Button</h4>
+                        <p><strong>Pin:</strong> D3</p>
+                        <p>Navigate and adjust settings. Short press: cycle settings. Long press: save.</p>
+                        <p><strong>Press Time:</strong> 3.5 seconds = Long Press</p>
+                    </div>
+                </div>
+
+                <!-- Potentiometer -->
+                <div class="component-card">
+                    <div class="component-image">🎚️</div>
+                    <div class="component-info">
+                        <h4>Potentiometer</h4>
+                        <p><strong>Pin:</strong> A15</p>
+                        <p>Adjusts threshold values in Configuration Mode. Rotate to change settings.</p>
+                        <p><strong>Dead Zone:</strong> 20 units minimum movement</p>
+                    </div>
+                </div>
+
+                <!-- SSR Relay -->
+                <div class="component-card">
+                    <div class="component-image">🔌</div>
+                    <div class="component-info">
+                        <h4>SSR Relay</h4>
+                        <p><strong>Pin:</strong> D8</p>
+                        <p>Controls pump power. Activates when all conditions are met.</p>
+                        <p><strong>Safety:</strong> Stops if water level drops</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Pin Summary</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Pin</th>
+                        <th>Type</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>pH Sensor</td>
+                        <td>A0</td>
+                        <td>Analog Input</td>
+                        <td>Read pH level</td>
+                    </tr>
+                    <tr>
+                        <td>Moisture Sensor</td>
+                        <td>A1</td>
+                        <td>Analog Input</td>
+                        <td>Read soil moisture</td>
+                    </tr>
+                    <tr>
+                        <td>Water Level Sensor</td>
+                        <td>A2</td>
+                        <td>Analog Input</td>
+                        <td>Read water tank level</td>
+                    </tr>
+                    <tr>
+                        <td>Control Button</td>
+                        <td>D3</td>
+                        <td>Digital Input</td>
+                        <td>Navigation & config</td>
+                    </tr>
+                    <tr>
+                        <td>SSR Relay</td>
+                        <td>D8</td>
+                        <td>Digital Output</td>
+                        <td>Pump control</td>
+                    </tr>
+                    <tr>
+                        <td>Potentiometer</td>
+                        <td>A15</td>
+                        <td>Analog Input</td>
+                        <td>Adjust thresholds</td>
+                    </tr>
+                    <tr>
+                        <td>LCD SDA</td>
+                        <td>20</td>
+                        <td>I2C Data</td>
+                        <td>LCD communication</td>
+                    </tr>
+                    <tr>
+                        <td>LCD SCL</td>
+                        <td>21</td>
+                        <td>I2C Clock</td>
+                        <td>LCD communication</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Operation -->
+        <section id="operation">
+            <h2>Operation Modes</h2>
+
+            <h3>Normal Mode (Default)</h3>
+            <p>The device operates in Normal Mode when powered on. The LCD cycles through three display pages automatically:</p>
+
+            <div class="subsection">
+                <h4>Display Pages</h4>
+                <ol>
+                    <li><strong>Soil Moisture:</strong> Shows moisture percentage and threshold</li>
+                    <li><strong>pH Level:</strong> Shows pH value and threshold</li>
+                    <li><strong>Water Level:</strong> Shows water level and threshold + pump status</li>
+                </ol>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">Each page displays for 3 seconds automatically.</p>
+            </div>
+
+            <h3>Pump Activation Logic</h3>
+            <p>The pump activates <strong>only when ALL three conditions are true:</strong></p>
+
+            <div class="spec-table">
+                <div class="spec-item">
+                    <div class="spec-label">Condition 1</div>
+                    <div class="spec-value">Soil moisture is BELOW threshold</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Condition 2</div>
+                    <div class="spec-value">pH level is ABOVE threshold</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Condition 3</div>
+                    <div class="spec-value">Water tank level is ABOVE threshold</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Safety Feature</div>
+                    <div class="spec-value">Stops if water level drops during operation</div>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>Example:</strong> If moisture is low but the water tank is empty, the pump will NOT activate. This prevents damage from running an empty pump.
+            </div>
+
+            <h3>Pump Duration</h3>
+            <p>Once activated, the pump runs for a configurable duration (default: 5 seconds). You can adjust this in Configuration Mode from 1-60 seconds.</p>
+
+            <h3>LCD Display Examples</h3>
+            <div class="lcd-simulation">
+                <div class="lcd-line">Soil Moisture:</div>
+                <div class="lcd-line">35% (T:50%)</div>
+            </div>
+
+            <div class="lcd-simulation">
+                <div class="lcd-line">pH Level:</div>
+                <div class="lcd-line">7.2 (T:7.0)</div>
+            </div>
+
+            <div class="lcd-simulation">
+                <div class="lcd-line">Water Level:</div>
+                <div class="lcd-line">45% (T:30%) PUMP</div>
+            </div>
+        </section>
+
+        <!-- Configuration -->
+        <section id="configuration">
+            <h2>Configuration Mode</h2>
+
+            <h3>Entering Configuration Mode</h3>
+            <ol class="steps">
+                <li>In Normal Mode, hold the <strong>control button</strong> for <strong>3.5 seconds</strong></li>
+                <li>The LCD will show "Config Mode" with "Release button.." message</li>
+                <li>Release the button when you see this message</li>
+                <li>The system enters Configuration Mode, ready for adjustments</li>
+            </ol>
+
+            <div class="alert alert-warning">
+                <strong>⚠️ Safety Note:</strong> The pump automatically stops when you enter Configuration Mode to prevent accidental activation.
+            </div>
+
+            <h3>Configurable Settings</h3>
+            <p>You can adjust four parameters in Configuration Mode:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>Setting</th>
+                        <th>Range</th>
+                        <th>Unit</th>
+                        <th>Default</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Soil Moisture Threshold</td>
+                        <td>0-100</td>
+                        <td>%</td>
+                        <td>50%</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>pH Level Threshold</td>
+                        <td>0.0-14.0</td>
+                        <td>pH</td>
+                        <td>7.0</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Water Level Threshold</td>
+                        <td>0-100</td>
+                        <td>%</td>
+                        <td>30%</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Pump Duration</td>
+                        <td>1-60</td>
+                        <td>seconds</td>
+                        <td>5s</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>How to Adjust Settings</h3>
+            <ol class="steps">
+                <li>In Configuration Mode, you'll see "[1/4] Moisture" with current threshold</li>
+                <li><strong>Rotate the potentiometer</strong> to adjust the value. It requires a minimum movement of 20 units to activate</li>
+                <li>Press the <strong>button briefly</strong> to move to the next setting (step 2: pH, step 3: Water Level, step 4: Pump Time)</li>
+                <li>Repeat steps 2-3 for each setting</li>
+            </ol>
+
+            <h3>Saving Configuration</h3>
+            <ol class="steps">
+                <li>After adjusting all four settings, hold the button for <strong>3.5 seconds</strong> again</li>
+                <li>At around 2 seconds, the LCD will show "Keep holding... to SAVE & EXIT"</li>
+                <li>Continue holding until it saves</li>
+                <li>The display shows "Settings Saved!" briefly</li>
+                <li>Return to Normal Mode automatically</li>
+            </ol>
+
+            <div class="alert alert-success">
+                <strong>✓ Persistent Storage:</strong> All settings are automatically saved to the device's non-volatile memory (EEPROM). Your configuration persists even if power is lost.
+            </div>
+
+            <h3>Configuration Mode Display</h3>
+            <div class="lcd-simulation">
+                <div class="lcd-line">[1/4] Moisture</div>
+                <div class="lcd-line">Thresh: 50%</div>
+            </div>
+
+            <div class="lcd-simulation">
+                <div class="lcd-line">Keep holding...</div>
+                <div class="lcd-line">to SAVE & EXIT</div>
+            </div>
+
+            <h3>Configuration Tips</h3>
+            <ul>
+                <li><strong>Moisture Threshold:</strong> Set lower for drought tolerance, higher for frequent watering</li>
+                <li><strong>pH Threshold:</strong> For most plants, 6.5-7.0 is optimal. Higher values (more alkaline) trigger watering</li>
+                <li><strong>Water Level:</strong> Keep at 30-50% for safety margin. Lower values risk pump stalling</li>
+                <li><strong>Pump Duration:</strong> Start with 5 seconds, adjust based on plant response and soil absorption</li>
+            </ul>
+        </section>
+
+        <!-- Troubleshooting -->
+        <section id="troubleshooting">
+            <h2>Troubleshooting</h2>
+
+            <h3>Display Shows Nothing</h3>
+            <div class="subsection">
+                <p><strong>Possible Causes & Solutions:</strong></p>
+                <ul>
+                    <li>Check power supply is properly connected to barrel jack</li>
+                    <li>Verify power supply is 5V or 12V (correct polarity)</li>
+                    <li>Check LCD I2C connection (pins 20 SDA, 21 SCL)</li>
+                    <li>Verify LCD address is 0x27 (configurable in code if different)</li>
+                </ul>
+            </div>
+
+            <h3>Pump Never Activates</h3>
+            <div class="subsection">
+                <p><strong>Possible Causes:</strong></p>
+                <ul>
+                    <li><strong>Water tank too low:</strong> Fill water tank above threshold level</li>
+                    <li><strong>Thresholds set incorrectly:</strong> Check Configuration Mode settings</li>
+                    <li><strong>Sensor not reading properly:</strong> Verify all sensor connections</li>
+                    <li><strong>pH sensor issue:</strong> Pump only runs if pH is ABOVE threshold (alkaline)</li>
+                </ul>
+            </div>
+
+            <h3>Pump Starts But Won't Stop</h3>
+            <div class="subsection">
+                <p><strong>Possible Causes:</strong></p>
+                <ul>
+                    <li>Pump duration may be set very high - enter Configuration Mode to check</li>
+                    <li>Manually enter Configuration Mode (hold button 3.5s) to stop pump for safety</li>
+                    <li>Check SSR Relay connection on pin D8</li>
+                </ul>
+            </div>
+
+            <h3>Button Not Responding</h3>
+            <div class="subsection">
+                <p><strong>Possible Causes:</strong></p>
+                <ul>
+                    <li>Check button connection to pin D3</li>
+                    <li>Verify external pull-down resistor is installed</li>
+                    <li>Button requires minimum press time - hold for 3.5 seconds for mode change</li>
+                    <li>In Config Mode, brief press to cycle settings</li>
+                </ul>
+            </div>
+
+            <h3>Potentiometer Not Adjusting Values</h3>
+            <div class="subsection">
+                <p><strong>Possible Causes:</strong></p>
+                <ul>
+                    <li>Potentiometer must move at least 20 units (dead zone) to activate</li>
+                    <li>Verify potentiometer is connected to pin A15</li>
+                    <li>Check potentiometer is in the correct direction - rotate fully to see range</li>
+                </ul>
+            </div>
+
+            <h3>Sensors Reading Incorrect Values</h3>
+            <div class="subsection">
+                <p><strong>Possible Solutions:</strong></p>
+                <ul>
+                    <li>Sensor calibration may be needed (requires code modification)</li>
+                    <li>Ensure sensors are properly inserted and making good contact</li>
+                    <li>Verify analog pins are correct: A0 (pH), A1 (Moisture), A2 (Water)</li>
+                    <li>Check sensor wiring for corrosion or damage</li>
+                </ul>
+            </div>
+
+            <h3>Configuration Won't Save</h3>
+            <div class="subsection">
+                <p><strong>Possible Causes:</strong></p>
+                <ul>
+                    <li>Must hold button for full 3.5 seconds after adjusting all settings</li>
+                    <li>LCD should show "Keep holding... to SAVE & EXIT" message</li>
+                    <li>Release button after seeing "Settings Saved!" message</li>
+                    <li>EEPROM may have memory issues (rare) - try pressing button only (no hold) to reset</li>
+                </ul>
+            </div>
+
+            <h3>General Reset</h3>
+            <div class="subsection">
+                <p>To reset the device to factory defaults:</p>
+                <ol>
+                    <li>Power off the device</li>
+                    <li>Wait 5 seconds</li>
+                    <li>Power on again</li>
+                    <li>The system will load saved configuration from EEPROM</li>
+                </ol>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>⚠️ Still Having Issues?</strong> Check all sensor and component connections. Ensure the Arduino board is properly programmed with the provided firmware.
+            </div>
+        </section>
+
+        <!-- Specifications -->
+        <section>
+            <h2>Technical Specifications</h2>
+            
+            <div class="spec-table">
+                <div class="spec-item">
+                    <div class="spec-label">Power Input</div>
+                    <div class="spec-value">5V or 12V DC via Barrel Jack</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Microcontroller</div>
+                    <div class="spec-value">Arduino-compatible (ATmega2560)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Display</div>
+                    <div class="spec-value">16x2 I2C LCD (Address 0x27)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Analog Inputs</div>
+                    <div class="spec-value">4 channels (pH, Moisture, Water, Potentiometer)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Digital I/O</div>
+                    <div class="spec-value">Button input, SSR Relay output</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Memory</div>
+                    <div class="spec-value">EEPROM for configuration persistence</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Pump Duration Range</div>
+                    <div class="spec-value">1-60 seconds (adjustable)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Display Update Cycle</div>
+                    <div class="spec-value">3 seconds per page, 150ms config refresh</div>
+                </div>
+            </div>
+
+            <h3>Sensor Ranges</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sensor</th>
+                        <th>Minimum</th>
+                        <th>Maximum</th>
+                        <th>Display Unit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Soil Moisture</td>
+                        <td>0%</td>
+                        <td>100%</td>
+                        <td>Percentage</td>
+                    </tr>
+                    <tr>
+                        <td>pH Level</td>
+                        <td>0.0</td>
+                        <td>14.0</td>
+                        <td>pH (1 decimal)</td>
+                    </tr>
+                    <tr>
+                        <td>Water Level</td>
+                        <td>0%</td>
+                        <td>100%</td>
+                        <td>Percentage</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Safety & Maintenance -->
+        <section>
+            <h2>Safety & Maintenance</h2>
+
+            <h3>Safety Precautions</h3>
+            <ul>
+                <li><strong>Power:</strong> Always use the correct voltage (5V or 12V). Reversed polarity may damage components</li>
+                <li><strong>Water:</strong> Keep the device away from excessive moisture on electronics (sensor housings are water-resistant)</li>
+                <li><strong>Heat:</strong> Operate in temperatures between 0-50°C (32-122°F)</li>
+                <li><strong>Pump:</strong> The pump includes safety shutdown if water level drops to prevent dry running</li>
+                <li><strong>Button:</strong> Use gentle pressure when pressing the button. Don't force it</li>
+            </ul>
+
+            <h3>Maintenance</h3>
+            <ul>
+                <li><strong>Sensors:</strong> Clean sensors regularly to ensure accurate readings</li>
+                <li><strong>Water Tank:</strong> Keep filled above the threshold level for pump operation</li>
+                <li><strong>Pump Tubing:</strong> Check for blockages or kinks that prevent water flow</li>
+                <li><strong>Electrical Connections:</strong> Ensure no corrosion on contacts</li>
+                <li><strong>Software:</strong> The device stores settings in memory - no recalibration needed between power cycles</li>
+            </ul>
+
+            <h3>Sensor Calibration</h3>
+            <p>The device ships with default calibration. For precise readings, you may need to calibrate sensors based on your specific plants and growing conditions. This requires code modification - contact support or consult the Arduino source code for calibration constants.</p>
+        </section>
+
+        <!-- Quick Reference -->
+        <section>
+            <h2>Quick Reference</h2>
+
+            <h3>Button Controls</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Action</th>
+                        <th>Duration</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Normal</td>
+                        <td>Short Press</td>
+                        <td>< 3.5s</td>
+                        <td>No action (reserved)</td>
+                    </tr>
+                    <tr>
+                        <td>Normal</td>
+                        <td>Long Press</td>
+                        <td>≥ 3.5s</td>
+                        <td>Enter Config Mode</td>
+                    </tr>
+                    <tr>
+                        <td>Config</td>
+                        <td>Short Press</td>
+                        <td>< 3.5s</td>
+                        <td>Cycle to next setting</td>
+                    </tr>
+                    <tr>
+                        <td>Config</td>
+                        <td>Long Press</td>
+                        <td>≥ 3.5s</td>
+                        <td>Save & Exit</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Default Configuration</h3>
+            <div class="subsection">
+                <p><strong>Moisture Threshold:</strong> 50%</p>
+                <p><strong>pH Threshold:</strong> 7.0 (neutral)</p>
+                <p><strong>Water Level Threshold:</strong> 30%</p>
+                <p><strong>Pump Duration:</strong> 5 seconds</p>
+            </div>
+
+            <h3>Pump Activation Checklist</h3>
+            <p>For pump to activate, verify:</p>
+            <ul>
+                <li>☑ Soil moisture is BELOW 50% threshold</li>
+                <li>☑ pH level is ABOVE 7.0 threshold</li>
+                <li>☑ Water tank level is ABOVE 30% threshold</li>
+                <li>☑ System is in Normal Mode (not Config)</li>
+                <li>☑ Power is properly supplied</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Automated Electromechanical Pump Controller</p>
+        <p>For support or questions, refer to the Arduino source code documentation</p>
+    </footer>
+
+    <script>
+        // Mobile hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav') && navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
