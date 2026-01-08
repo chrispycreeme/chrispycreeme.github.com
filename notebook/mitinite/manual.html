@@ -216,6 +216,13 @@
             justify-content: center;
             color: var(--text-light);
             font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .component-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
         .component-info {
@@ -744,7 +751,7 @@
             <div class="component-grid">
                 <!-- Soil Moisture Sensor -->
                 <div class="component-card">
-                    <div class="component-image">💧</div>
+                    <div class="component-image"><img src="img/soil_moisture.png" alt="Soil Moisture Sensor"></div>
                     <div class="component-info">
                         <h4>Soil Moisture Sensor</h4>
                         <p><strong>Pin:</strong> A1</p>
@@ -755,7 +762,7 @@
 
                 <!-- pH Sensor -->
                 <div class="component-card">
-                    <div class="component-image">🧪</div>
+                    <div class="component-image"><img src="img/ph_level.jpg" alt="pH Level Sensor"></div>
                     <div class="component-info">
                         <h4>pH Level Sensor</h4>
                         <p><strong>Pin:</strong> A0</p>
@@ -766,7 +773,7 @@
 
                 <!-- Water Level Sensor -->
                 <div class="component-card">
-                    <div class="component-image">🚰</div>
+                    <div class="component-image"><img src="img/water_level.jpg" alt="Water Level Sensor"></div>
                     <div class="component-info">
                         <h4>Water Level Sensor</h4>
                         <p><strong>Pin:</strong> A2</p>
@@ -777,7 +784,7 @@
 
                 <!-- LCD Display -->
                 <div class="component-card">
-                    <div class="component-image">📺</div>
+                    <div class="component-image"><img src="img/lcd_display.jpg" alt="LCD Display"></div>
                     <div class="component-info">
                         <h4>LCD Display (16x2)</h4>
                         <p><strong>Interface:</strong> I2C</p>
@@ -788,7 +795,7 @@
 
                 <!-- Control Button -->
                 <div class="component-card">
-                    <div class="component-image">🔘</div>
+                    <div class="component-image">🔵</div>
                     <div class="component-info">
                         <h4>Control Button</h4>
                         <p><strong>Pin:</strong> D3</p>
@@ -799,7 +806,7 @@
 
                 <!-- Potentiometer -->
                 <div class="component-card">
-                    <div class="component-image">🎚️</div>
+                    <div class="component-image"><img src="img/potentiometer.jpg" alt="Potentiometer"></div>
                     <div class="component-info">
                         <h4>Potentiometer</h4>
                         <p><strong>Pin:</strong> A15</p>
@@ -810,7 +817,7 @@
 
                 <!-- SSR Relay -->
                 <div class="component-card">
-                    <div class="component-image">🔌</div>
+                    <div class="component-image"><img src="img/ssr.png" alt="SSR Relay"></div>
                     <div class="component-info">
                         <h4>SSR Relay</h4>
                         <p><strong>Pin:</strong> D8</p>
